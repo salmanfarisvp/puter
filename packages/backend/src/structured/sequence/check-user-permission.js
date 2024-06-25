@@ -83,7 +83,7 @@ module.exports = new Sequence([
 
             if ( ! issuer_perm ) continue;
 
-            return row.extra;
+            return a.stop(row.extra);
         }
     }
 ]);
