@@ -85,5 +85,36 @@ module.exports = new Sequence([
 
             return a.stop(row.extra);
         }
+    },
+    async function try_user_to_group_permissions (a) {
+        let sql_perm = permission_options.map((perm) =>
+            `\`p.permission\` = ?`).join(' OR ');
+
+        if ( permission_options.length > 1 ) {
+            sql_perm = '(' + sql_perm + ')';
+        }
+        const rows = await db.read(
+            'SELECT p.permission, p.user_id, p.extra FROM jct_user_group ug ' +
+            'JOIN user_to_group_permissions p ON p.group_id = ug.group_id ' +
+            'WHERE ug.user_id = ? AND ' + sql_perm,
+            [
+                actor.type.user.id,
+                ...permission_options,
+            ]
+        );
+
+        for ( const row of rows ) {
+            const issuer_actor = new Actor({
+                type: new UserActorType({
+                    user: await get_user({ id: row.user_id }),
+                }),
+            });
+
+            const issuer_perm = await a.icall('check', issuer_actor, row.permission);
+
+            if ( ! issuer_perm ) continue;
+
+            return a.stop(row.extra);
+        }
     }
 ]);
