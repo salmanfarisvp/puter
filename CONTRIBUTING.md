@@ -45,37 +45,59 @@ If you'd like to contribute code to Puter, you need to fork the project and subm
 
 We'll review your pull request and work with you to get your changes merged into the project.
 
+## Repository Structure
+
+![file structure](./doc/File%20Structure.drawio.png)
+
 ## Your first code contribution
 
 We maintain a list of issues that are good for first-time contributors. You can find these issues by searching for the [`good first issue`](https://github.com/HeyPuter/puter/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) label in our [GitHub repository](https://github.com/HeyPuter/puter). These issues are designed to be relatively easy to fix, and we're happy to help you get started. Pick an issue that interests you, and leave a comment on the issue to let us know you're working on it.
 
-<br>
-
 ## Documentation for Contributors
 
-See [doc/contributors/index.md](./doc/contributors/index.md) for more information.
+### Backend
+See [src/backend/CONTRIBUTING.md](src/backend/CONTRIBUTING.md)
+
+<br>
+
+## PR Standards
+
+We expect the following from pull requests (it makes things easier):
+- If you're closing an issue, please reference that issue in the PR description
+- Avoid whitespace changes
+- No regressions for "appspace" (Puter apps)
 
 <br>
 
 ## Commit Messages
 
-Use the imperative, as is the convention in the Linux kernel:
+**Note:** we will squash-merge some PRs so they follow . Large PRs should follow conventional commits also. The instructions below are outdated but suitable for most PRs.
 
-- correct: `Improve performance of readdir`
-- incorrect: `Improved readdir`
-- incorrect: `Improving readdir`
+### Conventional Commits
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) with the following prefixes:
+- `fix:` for bug fixes
+- `dev:` instead of `refactor:`; covers more basis
+- `tweak:` for small updates
+- `sync:` when updating data from another source
+- `feat:` for a commit that first introduces a new feature
+
+Commit messages after the prefix should use the imperative (the same convention used in the repo for Linux, which Git was built for):
+
+- correct: `dev: improve performance of readdir`
+- incorrect: `dev: improved readdir`
+- incorrect: `dev: improving readdir`
 
 We have the following exceptions to this rule:
 - If the commit message is in _past tense_, it's a shorthand for the following:
-  - `Apply changes that would be applied after one had <past tense message>`
+  - `dev: apply changes that would be applied after one had <past tense message>`
 - If the commit message is in _present tense_, it's shorthand for the following:
-  - `Apply changes that would be applied after <present-tense message>`
+  - `dev: apply changes that would be applied after <present-tense message>`
 
 For example, the following are correct:
-- `Improved readdir`
-  - interpret this as: `Apply changes that would be applied after one had improved readdir`
-- `Improving readdir`
-  - interpret this as: `Apply changes that would be applied after improving readdir`
+- `dev: improved readdir`
+  - interpret this as: `dev: apply changes that would be applied after one had improved readdir`
+- `dev: improving readdir`
+  - interpret this as: `dev: apply changes that would be applied after improving readdir`
 
 <br>
 
